@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bhavya Shukla</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    /* Shared Styles */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:#0f1115; color:#fff; padding:2rem; transition:background 0.3s,color 0.3s; }
+    body.light-mode { background:#f5f5f5; color:#222; }
+    .navbar { position:sticky; top:0; background:#1c1e25; padding:1rem 2rem; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #333; z-index:1000; transition:background 0.3s; }
+    .navbar.light-mode { background:#ddd; border-color:#bbb; }
+    .navbar a { color:#61dafb; margin-left:1rem; text-decoration:none; font-weight:600; transition:color 0.3s; }
+    .navbar.light-mode a { color:#007acc; 
+    }
+
+    .resume-button {
+  background-color: #00bfff;
+  color: white;
+  padding: 8px 14px;
+  margin-left: 10px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.resume-button:hover {
+  background-color: #009acd;
+}
+
+
+    .dark-mode-toggle { background:none; border:2px solid #61dafb; color:#61dafb; padding:0.3rem 0.6rem; border-radius:5px; cursor:pointer; font-weight:600; transition:background 0.3s,color 0.3s; }
+    .dark-mode-toggle:hover { background:#61dafb; color:#000; }
+    .container { max-width:900px; margin:2rem auto; text-align:center; }
+    h1 { font-size:2.5rem; color:#61dafb; margin-bottom:1rem; }
+    p.subtitle { color:#ccc; margin-bottom:2rem; }
+    body.light-mode p.subtitle { color:#555; }
+    .profile-pic {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 2rem;
+  display: block;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Small devices (phones) */
+@media (max-width: 600px) {
+  .profile-pic {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/* Medium devices (tablets) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .profile-pic {
+    width: 130px;
+    height: 130px;
+  }
+}
+
+/* Large devices (desktops) */
+@media (min-width: 1025px) {
+  .profile-pic {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+    section { background:#1c1e25; padding:1.5rem; border-radius:12px; margin-bottom:2rem; text-align:left; }
+    body.light-mode section { background:#eee; color:#222; }
+    section h2 { color:#61dafb; margin-bottom:0.8rem; }
+    body.light-mode section h2 { color:#007acc; }
+    footer { text-align:center; padding:1.5rem; border-top:1px solid #333; margin-top:3rem; color:#888; }
+    body.light-mode footer { border-color:#bbb; color:#555; }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div><strong>Bhavya Shukla</strong></div>
+    <nav>
+      <a href="i1.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="experience.html">Experience</a>
+      <a href="certifications.html">Certifications</a>
+      <a href="achievements.html">Achievements</a>
+      <a href="additional.html">Additional Info</a>
+      <a href="Bhavya shukla_resume.pdf" target="_blank" rel="noopener noreferrer" class="resume-button">View Resume</a>
+      
+    </nav>
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</button>
+  </header>
+
+  <main class="container">
+    <img src="bhavya.png" alt="Bhavya Shukla" class="profile-pic" />
+    <h1>I’m Bhavya, a Web Developer</h1>
+    <p class="subtitle">Passionate about building modern and scalable web applications.</p>
+
+    <section>
+      <h2>Professional Summary</h2>
+      <p>Dedicated Computer Science student specializing in IoT with experience in software development, cloud technologies, and brand advocacy. Skilled in programming, problem-solving, IoT Development , and project management, with a passion for technology and innovation.</p>
+    </section>
+
+    <section>
+      <h2>About Me</h2>
+      <p>Computer Science student with a specialization in IoT and experience in full-stack web development. Skilled in HTML, CSS, JavaScript, React, AWS, Azure, IoT Development , and more.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Contact: <a href="mailto:bhavyashukla759@gmail.com">bhavyashukla759@gmail.com</a> | +91 8797725155 | <a href="https://www.linkedin.com/in/thebhavyashukla/" target="_blank">LinkedIn</a></p>
+  </footer>
+
+  <script>
+    function toggleDarkMode(){
+      document.body.classList.toggle('light-mode');
+      document.querySelector('.navbar').classList.toggle('light-mode');
+      localStorage.setItem('theme', document.body.classList.contains('light-mode')?'light':'dark');
+    }
+    window.addEventListener('load',()=>{
+      if(localStorage.getItem('theme')==='light'){
+        document.body.classList.add('light-mode');
+        document.querySelector('.navbar').classList.add('light-mode');
+      }
+    });
+    
+  </script>
+</body>
+</html>
