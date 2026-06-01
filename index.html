@@ -1,119 +1,56 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Single Phase Power Failure Monitoring System</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="app">
-    <aside class="sidebar">
-      <div class="brand admin-profile">
-        <span class="avatar" aria-hidden="true">
-          <svg viewBox="0 0 64 64" role="img">
-            <circle cx="32" cy="32" r="30" fill="#10243a"/>
-            <circle cx="32" cy="25" r="11" fill="#38bdf8"/>
-            <path d="M14 54c3.5-11 11-17 18-17s14.5 6 18 17" fill="#22c55e"/>
-            <path d="M18 52c3.1-7.9 8.6-12 14-12s10.9 4.1 14 12" fill="#2dd4bf"/>
-          </svg>
-        </span>
-        <div><b>Admin</b><small>Dashboard Control</small></div>
-        <button id="menuBtn" class="hamburger sidebar-toggle" aria-label="Toggle sidebar"><span></span><span></span><span></span></button>
-      </div>
-      <nav>
-        <a class="active" href="#dashboard">Dashboard</a><a href="#live">Live Monitor</a>
-        <a href="#logs">Event Logs</a><a href="#analytics">Analytics</a>
-        <a href="#alerts">Alerts</a><a href="#health">Device Health</a><a href="#settings">Settings</a>
-      </nav>
-    </aside>
-    <main>
-      <header class="topbar">
-        <div><small>IoT Project</small><h1>Single Phase Power Failure Monitoring System</h1></div>
-        <section class="meta">
-          <span id="deviceId"></span><span id="deviceIp"></span><span id="wifi" class="pill blue"></span>
-          <time id="clock"></time><span class="pill blue">Admin</span>
-        </section>
-      </header>
-
-      <section class="hero" id="dashboard">
-        <div>
-          <small>Web Notification Dashboard</small>
-          <h2>Real-time power supervision with outage intelligence.</h2>
-          <p>Monitor voltage, current, relay response, backup switching, ESP32 health, and event history from one professional dashboard.</p>
-          <a href="#live" class="primary">Open Live Monitor</a><button id="quickExport">Export CSV</button><button id="monitorToggle" class="danger">Switch Off Monitoring</button>
-        </div>
-        <article class="hero-state"><span id="ring"></span><div><small>Current State</small><b id="heroState"></b><p id="heroText"></p></div></article>
-      </section>
-
-      <section class="cards">
-        <article id="powerCard"><small>Power Status</small><b id="power"></b><p id="powerHint"></p></article>
-        <article><small>Voltage</small><b><span id="voltage"></span> V</b><p id="voltageHint"></p></article>
-        <article><small>Current</small><b><span id="current"></span> A</b><p id="currentHint"></p></article>
-        <article id="backupCard"><small>Backup Status</small><b id="backup"></b><p id="backupHint"></p></article>
-        <article><small>Relay Status</small><b id="relay"></b><p>Single channel relay module</p></article>
-        <article><small>Total Outages Today</small><b id="outages"></b><p id="outageHint"></p></article>
-        <article><small>System Health</small><b id="healthScore"></b><p id="healthHint"></p></article>
-        <article><small>Last Updated</small><b id="updated"></b><p>Auto refresh every 3 seconds</p></article>
-        <article><small>Energy Today</small><b><span id="energyToday">0.00</span> kWh</b><p>Estimated from live load</p></article>
-        <article><small>Packets Received</small><b id="packetCount">0</b><p id="latencyText">Link latency -- ms</p></article>
-      </section>
-
-      <section class="split">
-        <section class="panel" id="live">
-          <div class="title"><div><small>Live Monitor</small><h2>Phase-A Supply Status</h2></div><span id="espPill" class="pill"></span></div>
-          <article class="indicator" id="indicator"><i></i><div><small>Power State</small><b id="bigState"></b><p id="reason"></p></div></article>
-          <div class="readouts">
-            <article><small>Live Voltage</small><b><span id="liveVoltage"></span> V</b><meter id="vmeter" min="0" max="280"></meter></article>
-            <article><small>Live Current</small><b><span id="liveCurrent"></span> A</b><meter id="imeter" min="0" max="15"></meter></article>
-          </div>
-          <div class="states">
-            <article><small>Main Supply</small><b id="mainSupply"></b></article><article><small>Backup Supply</small><b id="backupSupply"></b></article>
-            <article><small>Relay</small><b id="relayMini"></b></article><article><small>Sensor State</small><b id="sensor"></b></article>
-            <article><small>ESP32</small><b id="esp"></b></article>
-          </div>
-        </section>
-        <aside class="panel" id="settings">
-          <div class="title"><div><small>Controls</small><h2>Operator Panel</h2></div></div>
-          <div class="controls">
-            <button id="refresh">Refresh Data</button><button id="fail" class="danger">Simulate Power Failure</button>
-            <button id="restore" class="success">Simulate Restore</button><button id="toggleBackup" class="warn">Toggle Backup</button>
-            <button id="export">Export Logs</button><button id="clearAlerts">Clear Alerts</button>
-          </div>
-          <div class="thresholds"><small>Thresholds</small><p>Voltage safe band: <b id="vband"></b></p><p>Current safe band: <b id="iband"></b></p></div>
-          <div class="thresholds integration-box">
-            <small>ESP32 Integration</small>
-            <p>Endpoint: <b id="apiEndpoint"></b></p>
-            <p>Mode: <b id="dataMode"></b></p>
-            <code>{"voltage":230.4,"current":3.8,"backupActive":false,"relay":"MAIN","espOnline":true}</code>
-          </div>
-        </aside>
-      </section>
-
-      <section class="charts" id="analytics">
-        <article class="panel"><div class="title"><h2>Voltage vs Time</h2><span class="pill blue">Live</span></div><canvas id="voltageChart"></canvas></article>
-        <article class="panel"><div class="title"><h2>Current vs Time</h2><span class="pill blue">Live</span></div><canvas id="currentChart"></canvas></article>
-        <article class="panel"><div class="title"><h2>Outage Count</h2><span class="pill warn">Today</span></div><canvas id="outageChart"></canvas></article>
-        <article class="panel"><div class="title"><h2>System State</h2><span class="pill">Distribution</span></div><canvas id="stateChart"></canvas></article>
-      </section>
-
-      <section class="split align">
-        <section class="panel logs" id="logs">
-          <div class="title"><div><small>Event Logs</small><h2>Failure and Restore History</h2></div>
-            <div class="tools"><input id="search" type="search" placeholder="Search logs"><button class="filter active" data-filter="all">All</button><button class="filter" data-filter="failure">Failures</button><button class="filter" data-filter="restore">Restored</button><button id="tableExport">CSV</button></div>
-          </div>
-          <div class="table-wrap"><table><thead><tr><th>Event ID</th><th>Type</th><th>Failure Time</th><th>Restore Time</th><th>Duration</th><th>Voltage</th><th>Current</th><th>Backup</th><th>Remarks</th></tr></thead><tbody id="logRows"></tbody></table></div>
-        </section>
-        <aside class="panel" id="alerts"><div class="title"><div><small>Alerts</small><h2>Recent Notifications</h2></div><span id="alertCount" class="pill"></span></div><div id="alertList" class="alert-list"></div></aside>
-      </section>
-      <section class="panel" id="health"><div class="title"><div><small>Device Health</small><h2>Hardware Module Diagnostics</h2></div><span id="checked" class="pill blue"></span></div><div id="healthGrid" class="health-grid"></div></section>
-    </main>
-  </div>
-  <div id="toasts"></div>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="script.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#05070d" />
+    <meta
+      name="description"
+      content="Bhavya Shukla is a full stack developer and AI-native builder creating React, API, database, cloud, IoT, and startup-ready products."
+    />
+    <meta
+      name="keywords"
+      content="Bhavya Shukla, Full Stack Developer, AI Engineer, Product Engineer, React Developer, IoT, AWS, Azure, Docker, SQL"
+    />
+    <meta name="author" content="Bhavya Shukla" />
+    <meta property="og:title" content="Bhavya Shukla | Full Stack Developer & AI-Native Builder" />
+    <meta
+      property="og:description"
+      content="Recruiter-friendly portfolio for full stack, AI engineer, product engineer, and startup engineering roles."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/favicon.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://bhavyashukla.dev/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>Bhavya Shukla | Full Stack Developer & AI-Native Builder</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Bhavya Shukla",
+        "jobTitle": "Full Stack Developer and AI-Native Builder",
+        "url": "https://bhavyashukla.dev/",
+        "sameAs": [
+          "https://github.com/bhavya21A",
+          "https://www.linkedin.com/in/thebhavyashukla/"
+        ],
+        "knowsAbout": [
+          "React.js",
+          "JavaScript",
+          "REST APIs",
+          "SQL",
+          "AWS",
+          "Azure",
+          "Docker",
+          "IoT",
+          "AI-assisted development"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
