@@ -425,25 +425,34 @@ function Contact() {
   const [status, setStatus] = useState("");
 
   async function handleSubmit(event) {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const payload = Object.fromEntries(formData.entries());
+  event.preventDefault();
 
-    setStatus("Sending...");
-    try {
-      const response = await fetch("/api/contact", {
+  const formData = new FormData(event.currentTarget);
+
+  setStatus("Sending...");
+
+  try {
+    const response = await fetch(
+      "https://formsubmit.co/ajax/bhavyashukla759@gmail.com",
+      {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+        headers: {
+          Accept: "application/json",
+        },
+        body: formData,
+      }
+    );
 
-      if (!response.ok) throw new Error("Request failed");
-      event.currentTarget.reset();
-      setStatus("Thanks. Your message was sent.");
-    } catch {
-      setStatus(`Form backend is offline. Email me directly at ${profile.email}.`);
+    if (!response.ok) {
+      throw new Error("Failed to send");
     }
+
+    event.currentTarget.reset();
+    setStatus("Thanks! Your message was sent successfully.");
+  } catch (error) {
+    setStatus("Unable to send message. Please email me directly.");
   }
+}
 
   return (
     <section className="section contact-section" id="contact">
@@ -465,6 +474,8 @@ function Contact() {
           </div>
         </div>
         <form className="contact-form" onSubmit={handleSubmit}>
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_subject" value="New Portfolio Contact Form Submission" />
           <label>
             Name
             <input name="name" type="text" autoComplete="name" required placeholder="Your name" />
