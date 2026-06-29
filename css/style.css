@@ -29,12 +29,15 @@
 html {
   scroll-behavior: smooth;
   scrollbar-color: var(--cyan) var(--bg);
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
   overflow-x: hidden;
+ max-width: 100%;
   background:
     radial-gradient(circle at top left, rgba(49, 246, 255, 0.12), transparent 34rem),
     radial-gradient(circle at right 18%, rgba(255, 78, 205, 0.1), transparent 30rem),
@@ -44,6 +47,7 @@ body {
   font-size: 16px;
   letter-spacing: 0;
 }
+
 
 body.nav-open {
   overflow: hidden;
@@ -436,6 +440,7 @@ button {
   padding: 0 15px;
 }
 
+
 .hero-kicker {
   display: inline-flex;
   align-items: center;
@@ -450,8 +455,9 @@ button {
   max-width: 780px;
   margin: 0;
   font-family: "Space Grotesk", "Inter", sans-serif;
-  font-size: clamp(2rem, 8vw, 5.2rem);
-  line-height: 0.98;
+  font-size: clamp(2.2rem, 9vw, 5.2rem);
+  line-height: 1;
+  word-break: break-word;
   letter-spacing: 0;
 }
 
@@ -1806,7 +1812,16 @@ button {
     display: none;
   }
 }
-
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 3rem;
+  }
+}
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2.3rem;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
