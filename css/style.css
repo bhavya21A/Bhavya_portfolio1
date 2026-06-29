@@ -1708,6 +1708,103 @@ button {
     max-height: calc(100svh - 104px);
   }
 }
+/* Extra Mobile Optimization */
+@media (max-width: 480px) {
+
+  .container,
+  .navbar {
+    width: calc(100% - 20px);
+  }
+
+  .section {
+    padding: 60px 0;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: 100px 0 60px;
+    background-position: center;
+  }
+
+  .hero-content {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+    line-height: 1.1;
+  }
+
+  .hero-role {
+    font-size: 1rem;
+    min-height: auto;
+  }
+
+  .hero-copy {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .section-heading h2,
+  .contact-copy h2 {
+    font-size: 1.8rem;
+  }
+
+  .hero-meta div,
+  .counter-card {
+    padding: 16px;
+    min-height: auto;
+  }
+
+  .counter-card span {
+    font-size: 2rem;
+  }
+
+  .project-content,
+  .service-card,
+  .testimonial-card,
+  .timeline-content,
+  .contact-form,
+  .about-story,
+  .education-card,
+  .focus-card,
+  .goals-card {
+    padding: 18px;
+  }
+
+  .info-list li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .info-list strong {
+    text-align: left;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  .chatbot-panel {
+    width: calc(100vw - 20px);
+    right: -5px;
+  }
+
+  .footer-inner {
+    text-align: center;
+  }
+
+  .footer-links,
+  .social-links {
+    justify-content: center;
+  }
+
+  .cursor-glow,
+  .particle-canvas {
+    display: none;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   *,
