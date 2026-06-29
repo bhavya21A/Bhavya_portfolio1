@@ -432,7 +432,8 @@ button {
   position: relative;
   z-index: 1;
   max-width: 780px;
-  margin-left: max(20px, calc((100vw - var(--max-width)) / 2));
+  margin: 0 auto;
+  padding: 0 15px;
 }
 
 .hero-kicker {
@@ -449,7 +450,7 @@ button {
   max-width: 780px;
   margin: 0;
   font-family: "Space Grotesk", "Inter", sans-serif;
-  font-size: 5.2rem;
+  font-size: clamp(2rem, 8vw, 5.2rem);
   line-height: 0.98;
   letter-spacing: 0;
 }
